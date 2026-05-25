@@ -1,0 +1,31 @@
+{% extends "fooddelivery/base.html" %}
+{% block title %}Restaurants - FoodORM{% endblock %}
+{% block content %}
+<h1>🏪 Restaurants</h1>
+<div class="card">
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Location</th><th>Cuisine</th><th>Rating</th><th>Status</th><th>Menu</th></tr>
+    </thead>
+    <tbody>
+      {% for r in restaurants %}
+      <tr>
+        <td>{{ r.restaurant_id }}</td>
+        <td><strong>{{ r.name }}</strong></td>
+        <td>{{ r.location }}</td>
+        <td>{{ r.cuisine_type }}</td>
+        <td>⭐ {{ r.rating }}</td>
+        <td>
+          {% if r.is_active %}
+            <span class="badge badge-green">Active</span>
+          {% else %}
+            <span class="badge badge-red">Inactive</span>
+          {% endif %}
+        </td>
+        <td><a href="/restaurants/{{ r.restaurant_id }}/">View Menu →</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

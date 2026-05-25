@@ -1,0 +1,24 @@
+{% extends "fooddelivery/base.html" %}
+{% block title %}Customers - FoodORM{% endblock %}
+{% block content %}
+<h1>👤 Customers</h1>
+<div class="card">
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Joined</th></tr>
+    </thead>
+    <tbody>
+      {% for c in customers %}
+      <tr>
+        <td>{{ c.customer_id }}</td>
+        <td><strong>{{ c.full_name }}</strong></td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.phone }}</td>
+        <td>{{ c.city }}</td>
+        <td>{{ c.joined_date|date:"d M Y" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

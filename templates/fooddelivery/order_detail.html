@@ -1,0 +1,39 @@
+{% extends "fooddelivery/base.html" %}
+{% block title %}Order #{{ order.order_id }} - FoodORM{% endblock %}
+{% block content %}
+<h1>📦 Order #{{ order.order_id }}</h1>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+  <div class="card">
+    <h2>Order Info</h2>
+    <p><strong>Status:</strong> {{ order.order_status }}</p>
+    <p style="margin-top:0.5rem;"><strong>Date:</strong> {{ order.order_date|date:"d M Y, H:i" }}</p>
+    <p style="margin-top:0.5rem;"><strong>Total:</strong> ₹{{ order.total_amount }}</p>
+    <p style="margin-top:0.5rem;"><strong>ETA:</strong> {{ order.estimated_delivery }} mins</p>
+    <p style="margin-top:0.5rem;"><strong>Address:</strong> {{ order.delivery_address }}</p>
+  </div>
+  <div class="card">
+    <h2>People</h2>
+    <p><strong>Customer:</strong> {{ order.customer.full_name }} ({{ order.customer.phone }})</p>
+    <p style="margin-top:0.5rem;"><strong>Restaurant:</strong> {{ order.restaurant.name }}</p>
+    <p style="margin-top:0.5rem;"><strong>Agent:</strong> {{ order.delivery_agent.agent_name|default:"Not assigned" }}</p>
+  </div>
+</div>
+<div class="card">
+  <h2>Items Ordered</h2>
+  <table>
+    <thead>
+      <tr><th>Item</th><th>Qty</th><th>Unit Price</th><th>Subtotal</th></tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.food_item.item_name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>₹{{ item.item_price }}</td>
+        <td>₹{{ item.subtotal }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

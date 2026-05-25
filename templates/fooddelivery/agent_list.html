@@ -1,0 +1,32 @@
+{% extends "fooddelivery/base.html" %}
+{% block title %}Delivery Agents - FoodORM{% endblock %}
+{% block content %}
+<h1>🛵 Delivery Agents</h1>
+<div class="card">
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Phone</th><th>Vehicle</th><th>Status</th><th>Rating</th></tr>
+    </thead>
+    <tbody>
+      {% for a in agents %}
+      <tr>
+        <td>{{ a.agent_id }}</td>
+        <td><strong>{{ a.agent_name }}</strong></td>
+        <td>{{ a.phone }}</td>
+        <td>{{ a.vehicle_type }}</td>
+        <td>
+          {% if a.status == "AVAILABLE" %}
+            <span class="badge badge-green">Available</span>
+          {% elif a.status == "ON_DELIVERY" %}
+            <span class="badge badge-orange">On Delivery</span>
+          {% else %}
+            <span class="badge badge-gray">Offline</span>
+          {% endif %}
+        </td>
+        <td>⭐ {{ a.rating }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

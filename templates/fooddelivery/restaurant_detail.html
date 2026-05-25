@@ -1,0 +1,39 @@
+{% extends "fooddelivery/base.html" %}
+{% block title %}{{ restaurant.name }} - FoodORM{% endblock %}
+{% block content %}
+<h1>🍽️ {{ restaurant.name }}</h1>
+<p style="color:var(--muted); margin-bottom:1.5rem;">📍 {{ restaurant.location }} &nbsp;|&nbsp; 🍴 {{ restaurant.cuisine_type }} &nbsp;|&nbsp; ⭐ {{ restaurant.rating }}</p>
+<div class="card">
+  <h2>Menu Items</h2>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Item</th><th>Description</th><th>Category</th><th>Price</th><th>Type</th><th>Available</th></tr>
+    </thead>
+    <tbody>
+      {% for item in menu_items %}
+      <tr>
+        <td>{{ item.item_id }}</td>
+        <td><strong>{{ item.item_name }}</strong></td>
+        <td style="color:var(--muted); font-size:0.85rem;">{{ item.description }}</td>
+        <td>{{ item.category }}</td>
+        <td>₹{{ item.price }}</td>
+        <td>
+          {% if item.is_veg %}
+            <span class="badge badge-green">🥦 Veg</span>
+          {% else %}
+            <span class="badge badge-red">🍗 Non-Veg</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if item.is_available %}
+            <span class="badge badge-green">Yes</span>
+          {% else %}
+            <span class="badge badge-gray">No</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
